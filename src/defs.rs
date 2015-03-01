@@ -64,7 +64,7 @@ impl Gc {
         self.current_build = None;
     }
 
-    pub fn alloc(&mut self, id: usize) -> *mut c_void {
+    pub fn alloc(&mut self, id: usize, _canary: usize) -> *mut c_void {
         let class_id = ClassId(id);
         let class = self.classes.get(&class_id)
                         .expect("Tried to alloc with unknown id");

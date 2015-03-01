@@ -34,7 +34,7 @@ pub unsafe extern fn gc_add_class_ptr(offset: usize) {
 }
 
 pub unsafe extern fn gc_alloc(id: usize) {
-    (*gc.unwrap()).alloc(id);
+    (*gc.unwrap()).alloc(id, canary);
 }
 
 pub unsafe extern fn gc_destroy() {
