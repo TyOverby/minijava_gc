@@ -101,8 +101,12 @@ impl Gc {
         while let Some(next) = added.pop() {
             let class = self.class_for(next);
             for &offset in &class.ptr_locations {
-                seen.insert(next + offset);
-                added.push(next + offset);
+                let next_ptr = next + offset;
+                if self.allocated_objs.contains_key(&next_ptr) &&
+                   !seen.contains(&next_ptr) {
+                    seen.insert(next_ptr);
+                    added.push(next_ptr);
+                }
             }
         }
 
